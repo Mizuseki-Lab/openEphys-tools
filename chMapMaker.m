@@ -15,19 +15,82 @@ function chMapMaker(probes,preamps,mapFileName,preampOrder)
 %
 % Dec 2017, Hiroyuki Miyawaki 
 %
-if ~exist('mapFileName','var')
-    mapFileName='';
-end
+
+%check preampOrder
 if ~exist('preampOrder','var')
     preampOrder=1:length(probes);
 else
     if size(preampOrder,1)>1 && size(preampOrder,2)==1
         preampOrder=preampOrder';
     end
-    
-    %remove gaps
-    preampOrder=tiedrank(preampOrder);
 end
+
+%check numbers of preamp, probe, and preampOrder
+if length(probes) ~= length(preamps)
+    error(sprintf('Number of probes (%d) doesn''t match with that of preamp (%d)',length(probes),length(preamps)))
+end
+if length(probes) ~= length(preampOrder)
+    error(sprintf('Number of probes (%d) doesn''t match with that of preamp (%d)',length(probes),length(preamps)))
+end
+
+%check given map
+for pIdx=1:length(probes)
+    
+    %each map/order must be uique integer, start with 1, without gaps
+    for varIdx=1:(3+(pIdx==1))
+        switch varIdx
+            case 1
+                checkTarget=probes{pIdx}.shank(:)';
+                varName=sprintf('probes{%d}.shank',pIdx);
+            case 2
+                checkTarget=probes{pIdx}.omnetics(:)';
+                varName=sprintf('probes{%d}.omnetics',pIdx);
+            case 3
+                checkTarget=preamps{pIdx}.inputPin(:)';
+                varName=sprintf('probes{%d}.inputPin',pIdx);
+            case 4
+                checkTarget=preampOrder;
+                varName='preampOrder';
+            otherwise
+                continue
+        end
+        
+        if length(checkTarget)~=length(unique(checkTarget))
+            error('Error in %s: has non-unique member',varName)
+        end
+        
+        if min(checkTarget)~=1
+            error('Error in %s: does not start with 1.',varName)
+        end
+
+        if any(mod(checkTarget,1)~=0)
+            error('Error in %s: has non-integer member',varName)
+        end
+        
+        if any(checkTarget~=tiedrank(checkTarget))
+            error('Error in %s: has gap',varName)
+        end
+
+    end
+    
+    %check map sizes
+    if length(probes{pIdx}.shank(:))~=length(probes{pIdx}.omnetics(:))
+        error('Error in probes{%d}: .shank and .omnetics must have same number of channels',pIdx)
+    end
+
+    if length(probes{pIdx}.shank(:))~=length(preamps{pIdx}.inputPin(:))
+        error('Error in probes{%d} and/or preamps{%d}: size of maps are not matched',pIdx,pIdx)
+    end
+    
+end
+
+
+
+
+if ~exist('mapFileName','var')
+    mapFileName='';
+end
+%%
 
 for n=1:preampOrder
     shanks{n}=reshape(probes{n}.shank,1,[]);
