@@ -92,7 +92,7 @@ if ~exist('mapFileName','var')
 end
 %%
 
-for n=1:preampOrder
+for n=preampOrder
     shanks{n}=reshape(probes{n}.shank,1,[]);
     omnetics{n}=reshape(probes{n}.omnetics,1,[]);
     toUse{n}=reshape(probes{n}.toUse,1,[]);
