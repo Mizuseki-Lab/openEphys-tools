@@ -36,6 +36,11 @@ predefine.probe.buz64sp.omnetics=[37 39 40 42 43 45 46 48 17 19 20 22 23 25 26 2
                                   63 61 59 57 55 53 51 49 16 14 12 10  8  6  4  2];
 predefine.probe.buz64.toUse=true(1,64);
 
+%linear 32ch
+predefine.probe.linear32.shank=32:-1:1;
+predefine.probe.linear32.omnetics=[18 27 28 29 17 30 31 32  1  2  3 16  4  5  6 15
+                          20 21 22 23 19 24 25 26  7  8  9 14 10 11 12 13];
+predefine.probe.linear32.toUse=true(1,32);
 
 %addtional input for emg, ecg, etc.
 predefine.probe.emg.shank=1:16;
