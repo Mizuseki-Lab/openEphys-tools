@@ -34,7 +34,7 @@ predefine.probe.buz64sp.omnetics=[37 39 40 42 43 45 46 48 17 19 20 22 23 25 26 2
                                   36 38 35 41 34 44 33 47 18 32 21 31 24 30 27 29
                                   64 62 60 58 56 54 52 50 15 13 11  9  7  5  3  1
                                   63 61 59 57 55 53 51 49 16 14 12 10  8  6  4  2];
-predefine.probe.buz64.toUse=true(1,64);
+predefine.probe.buz64sp.toUse=true(1,64);
 
 %linear 32ch
 predefine.probe.linear32.shank=32:-1:1;
