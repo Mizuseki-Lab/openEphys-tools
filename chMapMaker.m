@@ -132,7 +132,21 @@ for n=1:size(shankMap,2)
 end
 channelMap=sortrows(channelMap,2)';
 
+%%
+%put chanels not used last to avoid rec ch error on open-ephys
+activeCh=[];
+inactiveCh=[];
+for n=1:size(channelMap)
+    if chToUse(n)
+        activeCh(end+1,:)=channelMap(n,:);
+    else
+        inactiveCh(end+1,:)=channelMap(n,:);
+    end
+end
 
+channelMap=[activeCh;inactiveCh];
+
+chToUse=[true(1,size(activeCh,1)),false(1,size(inactiveCh,1))];
 
 %%
 
