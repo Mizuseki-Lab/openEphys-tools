@@ -133,7 +133,7 @@ end
 channelMap=sortrows(channelMap,2)';
 
 %%
-%put chanels not used last to avoid rec ch error on open-ephys
+%put chanels not used last to avoid record channel error on open-ephys
 activeCh=[];
 inactiveCh=[];
 for n=1:size(channelMap)
@@ -146,7 +146,7 @@ end
 
 channelMap=[activeCh;inactiveCh];
 
-chToUse=[true(1,size(activeCh,1)),false(1,size(inactiveCh,1))];
+chToUse=[true(1,size(activeCh,2)),false(1,size(inactiveCh,2))];
 
 %%
 
