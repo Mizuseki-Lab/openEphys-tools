@@ -57,6 +57,20 @@ predefine.probe.adc.shank=1:8;
 predefine.probe.adc.omnetics=1:8;
 predefine.probe.adc.toUse=true(1,8);
 
+% Cambridge F probe
+predefine.probe.CamF.shank=[ 41 24 39 33 27 35 40 26 28 37 ...
+                             25 43 38 30 36 20 23 45 34 22 21 ...
+                             48 46 50 19 17 42 29 44 47 32 18 ...
+                             14  1  4 31 53 49 12 16 51 15  3 ...
+                             56 63 13 10 52 59  2  6 54 61  8 ...
+                             60 58  7  5 64 57 11 55 62  9]
+
+predefine.probe.CamF.omnetics=[32 30 28 26 24 22 20 18 16 14 12 10  8  6  4  2
+                               31 29 27 25 23 21 19 17 15 13 11  9  7  5  3  1
+                               33 35 37 39 41 43 45 47 49 51 53 55 57 59 61 63
+                               34 36 38 40 42 44 46 48 50 52 54 56 58 60 62 64];
+predefine.probe.CamF.toUse=true(1,64);
+
 
 %intan rhd2132, 32ch amp
 predefine.preamp.rhd2132.inputPin=[ 8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
