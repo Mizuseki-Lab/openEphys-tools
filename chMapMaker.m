@@ -1,4 +1,4 @@
-function chMapMaker(probes,preamps,mapFileName,preampOrder)
+function chMapMaker(probes,preamps,mapFileName,preampOrder,start_zero)
 % chmap file generator for open ephys
 %
 % chMapMaker(probes,preamps,mapFileName,preampOrder)
@@ -13,9 +13,14 @@ function chMapMaker(probes,preamps,mapFileName,preampOrder)
 % if it's not specified, it is assumed that probes and premans are given in
 % the connected order.
 %
+% for newer 
 % Dec 2017, Hiroyuki Miyawaki 
+% update Apl 2023, Hiroyuki Miyawaki
 %
 
+if ~exist('start_zero','var')
+    start_zero = false;
+end
 %check preampOrder
 if ~exist('preampOrder','var')
     preampOrder=1:length(probes);
@@ -147,7 +152,10 @@ end
 channelMap=[activeCh;inactiveCh];
 
 chToUse=[true(1,size(activeCh,2)),false(1,size(inactiveCh,2))];
-
+%%
+if start_zero
+    channelMap = channelMap -1;
+end
 %%
 
 if isempty(mapFileName)
