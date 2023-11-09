@@ -42,3 +42,6 @@ preamps{idx}=predefine.preamp.adc;
 
 %% run chMapMaker
 chMapMaker(probes,preamps,mapFileName);
+
+%%
+

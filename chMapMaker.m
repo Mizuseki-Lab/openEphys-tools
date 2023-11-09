@@ -141,15 +141,15 @@ channelMap=sortrows(channelMap,2)';
 %put chanels not used last to avoid record channel error on open-ephys
 activeCh=[];
 inactiveCh=[];
-for n=1:size(channelMap)
+for n=1:size(channelMap,2)
     if chToUse(n)
-        activeCh(end+1,:)=channelMap(n,:);
+        activeCh(:,end+1)=channelMap(:,n);
     else
-        inactiveCh(end+1,:)=channelMap(n,:);
+        inactiveCh(:,end+1)=channelMap(:,n);
     end
 end
 
-channelMap=[activeCh;inactiveCh];
+channelMap=[activeCh,inactiveCh];
 
 chToUse=[true(1,size(activeCh,2)),false(1,size(inactiveCh,2))];
 %%
@@ -158,8 +158,10 @@ if start_zero
 end
 %%
 
-if isempty(mapFileName)
+if isempty(mapFileName) && nargout==0
     func=@(x) fprintf(x{:});
+elseif isempty(mapFileName) && nargout>0
+     func=@(x) 1;
 else
     fh=fopen(mapFileName,'w');
     func=@(x) fprintf(fh,x{:});
@@ -236,4 +238,8 @@ func({'  }\r\n'});
 
 if ~isempty(mapFileName)
     fclose(fh);
+end
+
+if nargout>0
+    varargout{1}=channelMap;
 end
